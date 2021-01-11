@@ -15,7 +15,7 @@ client.on("ready", () => {
 });
 
 const prefix = "k."
-const BotOwner = "690565986696429619"
+const BotOwner = "Owner"
 
 client.on("guildMemberAdd", member => {
   if (Date.now() - member.user.createdAt < 1000*60*60*24*10) {
@@ -25,8 +25,8 @@ member.addRole("Special Passes ----------------------------------------------");
 member.addRole("Information --------------------------------------------------");
 member.addRole("Region -------------------------------------------------------");
 
-      client.channels.cache.get('747126116569055262').send('Salutations, your account age seems to be below the threshold set, which counts you as being new to Discord. Please seek staff assistance at <#771304054236119050> before we allow you to verify for Phase 01. We thank you for your cooperation!');
-      client.channels.cache.get('747126116569055262').send('Good day, new user. Here is the question the bureau would like to ask you:\n\n> What is a fandom, and what does one usually do in a fandom? (Minimum of 5 sentences)');
+      client.channels.cache.get('Holding Area').send('Salutations, your account age seems to be below the threshold set, which counts you as being new to Discord. Please seek staff assistance at <#771304054236119050> before we allow you to verify for Phase 01. We thank you for your cooperation!');
+      client.channels.cache.get('Muted channel').send('Good day, new user. Here is the question the bureau would like to ask you:\n\n> What is a fandom, and what does one usually do in a fandom? (Minimum of 5 sentences)');
   } else {
     member.addRole("Dyno Phase");
 member.addRole("Special Passes ----------------------------------------------");
@@ -160,7 +160,7 @@ function vote(message) {
 
 function endbot(message){
   message.delete()
-  if (message.author.id !== '690565986696429619') {
+  if (message.author.id !== 'BotOwner') {
     message.channel.send("Hey! You are not my developer! >_>")
   } else
   message.channel.send("Disconnecting from Discord. Good day, everyone."),
