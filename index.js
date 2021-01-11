@@ -7,13 +7,33 @@ client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => {
    
-  console.log('Kigu, am I alive?')
-  let activities = [`within The Infinite Library | k.help`, `Cyanide Heights | k.help`, `with the nexus star | k.help`, `with Astral Sorcery | k.help`, `inside the Cyanide Spire | k.help`  ],i = 6;
-  setInterval(() => client.user.setActivity(`${activities[i++ %  activities.length]}`,  {type:"PLAYING",}), 60000)
+  console.log('I have reconnected to the Spire. Awaiting orders.')
+
+  let activities = [`in the Infinite Library | k.help`, `Cyanide Heights | k.help`, `with the nexus star | k.help`, `with Astral Sorcery | k.help`, `between rifts | k.help`, `Outside the Spire gates | k.help`  ],i = 6;
+  setInterval(() => client.user.setActivity(`${activities[i++ %  activities.length]}`,  {type:"PLAYING",}), 30000)
+
 });
 
 const prefix = "k."
 const BotOwner = "690565986696429619"
+
+client.on("guildMemberAdd", member => {
+  if (Date.now() - member.user.createdAt < 1000*60*60*24*10) {
+    member.addRole("silenced");
+member.addRole("Dyno Phase");
+member.addRole("Special Passes ----------------------------------------------");
+member.addRole("Information --------------------------------------------------");
+member.addRole("Region -------------------------------------------------------");
+
+      client.channels.cache.get('747126116569055262').send('Salutations, your account age seems to be below the threshold set, which counts you as being new to Discord. Please seek staff assistance at <#771304054236119050> before we allow you to verify for Phase 01. We thank you for your cooperation!');
+      client.channels.cache.get('747126116569055262').send('Good day, new user. Here is the question the bureau would like to ask you:\n\n> What is a fandom, and what does one usually do in a fandom? (Minimum of 5 sentences)');
+  } else {
+    member.addRole("Dyno Phase");
+member.addRole("Special Passes ----------------------------------------------");
+member.addRole("Information --------------------------------------------------");
+member.addRole("Region -------------------------------------------------------");
+  }
+});
 
 client.on("message", (message) => {
     
@@ -35,7 +55,7 @@ client.on("message", (message) => {
             timestamp: new Date(),
             footer: {
               icon_url: client.user.avatarURL,
-              text: "Discord.js v12 | Bot version 3.7"
+              text: "Discord.js v12 | Bot version 5.0"
             }
           }
         });
@@ -64,7 +84,7 @@ client.on("message", (message) => {
     } else
     if (message.content.startsWith(prefix + "apply")){
       applications(message)
-    } else
+    } else 
         message.channel.send("Sorry, I do not understand you. Use `k.help` for the list!")
 })
 
@@ -157,26 +177,22 @@ function applications(message){
       icon_url: client.user.avatarURL
     },
     title: "CHST - CHMB Staff Applications",
-    description: "Salutations, and thank you for opening this tab.\nhere are the positions you can attain in the server staff team.",
+    description: "here are the positions you can attain in the server staff team.",
     fields: [{
         name: "General Requirements",
-        value: "You must have the following requirements:\n-is trustworthy\n-has no violations from past month\n-must be in the server for a month\n-has knowledge of <#753782403486449806>\n-fluent in english"
-      },
-      {
-        name: "Specific Requirements (Moderator)",
-        value: "You must have the following requirements:\n-age is 16+"
+        value: "You must have the following requirements:\n-is trustworthy\n-has no violations from past month\n-must be in the server for a month\n-has knowledge of <#753782403486449806>\n-fluent in english\n-age is 16+ (moderators), and 18+ (other positions)"
       },
       {
         name: "Specific Requirements (Administrator)",
-        value: "You must have the following requirements:\n-age is 18+\n-has some experience of being staff"
+        value: "\n-has some experience of being staff"
       },
       {
         name: "Specific Requirements (Developer)",
-        value: "You must have the following requirements:\n-age is 18+\n-has knowledge in developing servers/events"
+        value: "-has knowledge in developing servers/events"
       },
       {
         name: "Specific Requirements (Counsellor)",
-        value: "You must have the following requirements:\n-age is 18+\n-has knowledge in giving support to people who seek help/advice"
+        value: "-has knowledge in giving support to people who seek help/advice"
       },
       {
         name: "Apply here",
