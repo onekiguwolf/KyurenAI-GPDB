@@ -16,12 +16,13 @@ client.on("ready", () => {
 
 client.on("guildMemberAdd", member => {
   
-  const role1 = message.guild.roles.cache.find(r => r.name === "silenced");
-  const role2 = message.guild.roles.cache.find(r => r.name === "Dyno Phase");
-  const role3 = message.guild.roles.cache.find(r => r.name === "Special Passes ----------------------------------------------");
-  const role4 = message.guild.roles.cache.find(r => r.name === "Information --------------------------------------------------");
-  const role5 = message.guild.roles.cache.find(r => r.name === "Region -------------------------------------------------------");
-
+  const role1 = member.guild.roles.cache.find(r => r.name === "silenced");
+  const role2 = member.guild.roles.cache.find(r => r.name === "Dyno Phase");
+  const role3 = member.guild.roles.cache.find(r => r.name === "Special Passes ----------------------------------------------");
+  const role4 = member.guild.roles.cache.find(r => r.name === "Information --------------------------------------------------");
+  const role5 = member.guild.roles.cache.find(r => r.name === "Region -------------------------------------------------------");
+  const chss = client.channels.cache.find(c => c.name === "main verification channel")
+  const silenced = client.channels.cache.find(c => c.name === "alt verification channel")
   if (Date.now() - member.user.createdAt < 1000*60*60*24*10) { 
 
     member.roles.add(role1);
@@ -29,16 +30,16 @@ client.on("guildMemberAdd", member => {
     member.roles.add(role3);
     member.roles.add(role4);
     member.roles.add(role5);
-      client.channels.cache.get('holding area').send('Salutations, your account age seems to be below the threshold set, which counts you as being new to Discord. Please seek staff assistance at <#771304054236119050> before we allow you to verify for Phase 01. We thank you for your cooperation!');
-      client.channels.cache.get('silenced users').send('Good day, new user. Here is the question the bureau would like to ask you:\n\n> What is a fandom, and what does one usually do in a fandom? (Minimum of 5 sentences)');
+chss.send('Salutations, your account age seems to be below the threshold set, which counts you as being new to Discord. Please seek staff assistance at <#771304054236119050> before we allow you to verify for Phase 01. We thank you for your cooperation!');
+silenced.send(`Good day, <@${member.user.id}> . Here is the question the bureau would like to ask you:\n\n> What is a fandom, and what does one usually do in a fandom? (Minimum of 5 sentences)`);
   } else {
     member.roles.add(role2);
     member.roles.add(role3);
     member.roles.add(role4);
     member.roles.add(role5);
-    client.channels.cache.get('holding area').send('Salutations, and welcome to Cyanide Heights! To begin with verification, please answer the questions sent by Security (aka Dyno) in this channel.\n\nAfter answering, please do wait for the staff to approve your entry or ask additional security questions. We hope you enjoy your stay after the 2FA Verification process!\n\np.s: Were there no DMs sent? type `begin` to get the questions!');
-      }
-});
+chss.send(`Salutations <@${member.user.id}>, and welcome to Cyanide Heights! To begin with verification, please answer the questions sent by Security (aka Dyno) in this channel.\n\nAfter answering, please do wait for the staff to approve your entry or ask additional security questions. We hope you enjoy your stay after the 2FA Verification process!\n\np.s: Were there no DMs sent? type __begin__ to get the questions!`)
+  }
+  });
 const prefix = "k."
 const BotOwner = "Owner"
 
