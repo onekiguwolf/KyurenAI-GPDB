@@ -14,26 +14,33 @@ client.on("ready", () => {
 
 });
 
+client.on("guildMemberAdd", member => {
+  
+  const role1 = message.guild.roles.cache.find(r => r.name === "silenced");
+  const role2 = message.guild.roles.cache.find(r => r.name === "Dyno Phase");
+  const role3 = message.guild.roles.cache.find(r => r.name === "Special Passes ----------------------------------------------");
+  const role4 = message.guild.roles.cache.find(r => r.name === "Information --------------------------------------------------");
+  const role5 = message.guild.roles.cache.find(r => r.name === "Region -------------------------------------------------------");
+
+  if (Date.now() - member.user.createdAt < 1000*60*60*24*10) { 
+
+    member.roles.add(role1);
+    member.roles.add(role2);
+    member.roles.add(role3);
+    member.roles.add(role4);
+    member.roles.add(role5);
+      client.channels.cache.get('holding area').send('Salutations, your account age seems to be below the threshold set, which counts you as being new to Discord. Please seek staff assistance at <#771304054236119050> before we allow you to verify for Phase 01. We thank you for your cooperation!');
+      client.channels.cache.get('silenced users').send('Good day, new user. Here is the question the bureau would like to ask you:\n\n> What is a fandom, and what does one usually do in a fandom? (Minimum of 5 sentences)');
+  } else {
+    member.roles.add(role2);
+    member.roles.add(role3);
+    member.roles.add(role4);
+    member.roles.add(role5);
+    client.channels.cache.get('holding area').send('Salutations, and welcome to Cyanide Heights! To begin with verification, please answer the questions sent by Security (aka Dyno) in this channel.\n\nAfter answering, please do wait for the staff to approve your entry or ask additional security questions. We hope you enjoy your stay after the 2FA Verification process!\n\np.s: Were there no DMs sent? type `begin` to get the questions!');
+      }
+});
 const prefix = "k."
 const BotOwner = "Owner"
-
-client.on("guildMemberAdd", member => {
-  if (Date.now() - member.user.createdAt < 1000*60*60*24*10) {
-    member.addRole("silenced");
-member.addRole("Dyno Phase");
-member.addRole("Special Passes ----------------------------------------------");
-member.addRole("Information --------------------------------------------------");
-member.addRole("Region -------------------------------------------------------");
-
-      client.channels.cache.get('Holding Area').send('Salutations, your account age seems to be below the threshold set, which counts you as being new to Discord. Please seek staff assistance at <#771304054236119050> before we allow you to verify for Phase 01. We thank you for your cooperation!');
-      client.channels.cache.get('Muted channel').send('Good day, new user. Here is the question the bureau would like to ask you:\n\n> What is a fandom, and what does one usually do in a fandom? (Minimum of 5 sentences)');
-  } else {
-    member.addRole("Dyno Phase");
-member.addRole("Special Passes ----------------------------------------------");
-member.addRole("Information --------------------------------------------------");
-member.addRole("Region -------------------------------------------------------");
-  }
-});
 
 client.on("message", (message) => {
     
@@ -99,23 +106,23 @@ function support(message){
     description: "Salutations. How may I be of assistance?",
     fields: [{
         name: "Official Twitter",
-        value: "Click/tap [here](https://twitter.com/CyanideHeights) to visit our twitter!"
+        value: "Click/tap [here](twitter here!) to visit our twitter!"
       },
       {
         name: "Visit our official website",
-        value: "Click/tap [here](https://cyanideheights.blogspot.com/) to head to The Cyanide Archives."
+        value: "Click/tap [here](website) to head to The Cyanide Archives."
       },
       {
         name: "FAQs",
-        value: "Click/tap [here](https://cyanideheights.blogspot.com/p/faq-thread-06012021.html) to get FAQs! (note: this is yet to be updated.)"
+        value: "Click/tap [here](site faq) to get FAQs!"
       },
       {
           name: "Make an Offline Report Ticket" ,
-          value: "Click/Tap [here](https://forms.gle/2xmmi7eJD99SrBANA) to access the system."
+          value: "Click/Tap [here](report ticket! google form link) to access the system."
       },
       {
           name: "Server Statistics (December 2020)",
-          value: "Click/tap [here](https://cyanideheights.blogspot.com/2020/12/server-statistics-december-2020.html) to view last month's stats."
+          value: "Click/tap [here](stats here link) to view last month's stats."
       }
     ],
     timestamp: new Date(),
@@ -196,7 +203,7 @@ function applications(message){
       },
       {
         name: "Apply here",
-        value: "[click/tap me](https://forms.gle/TdDyD9RQ6EtfKdBz7) to get to the applications."
+        value: "[click/tap me](gform link) to get to the applications."
       },
     ],
     timestamp: new Date(),
