@@ -43,11 +43,14 @@ chss.send(`Salutations <@${member.user.id}>, and welcome to Cyanide Heights! To 
 const prefix = "k."
 const BotOwner = "Owner"
 
-client.on("message", (message) => {
-    
-    
+client.on("message", async message => {
+
+  let args = message.content.slice(prefix.length).trim().split(/ +/)
+  let command = args.shift().toLowerCase()
+
 
     if (!message.content.startsWith(prefix)) return;
+    if (message.author.bot) return;
 
     if (message.content.startsWith(prefix + "ping")) {
         message.channel.send(":bell: I am still awake!")
@@ -93,6 +96,15 @@ client.on("message", (message) => {
     if (message.content.startsWith(prefix + "apply")){
       applications(message)
     } else 
+    if (message.content.startsWith(prefix + "begin")) {
+      seguridad(message)
+    } else
+    if (command === "decline") {
+      nope(message)
+    } else 
+    if (command === "accept") {
+      toregistry(message)
+    } else
         message.channel.send("Sorry, I do not understand you. Use `k.help` for the list!")
 })
 
@@ -215,3 +227,125 @@ function applications(message){
   }
 })      
 }
+
+function seguridad(message){
+
+  const staffchan =  client.channels.cache.find(c => c.name === "applications")
+
+  const questions = {
+    firstQuestion: "First question, where did you come from? If it was from a friend, do type their Name and Discriminator (example: Wumpus#1234).",
+    secondQuestion: "Alright, let's proceed. What brings you to join this server?",
+    thirdQuestion: "I see. Have you been to a furry community or in any other community? like Anime or Undertale perhaps?",
+    fourthQuestion: "Noted. Do you happen to have a fursona? If so, what would your cute sona be?",
+    fifthQuestion: "Got it, a cutie indeed. Anyhow, how long have you been staying in your respective fandom?",
+    sixthQuestion: "Okay. Give at least three rules that this server is currently enforcing.",
+    seventhQuestion: "Last thing before I send this to the gatekeepers: What is the Server Authentication Code? If you have read the rules, you should be able to say it.",
+  }
+
+  message.reply("Alright, let's begin. Please visit me in DMs (make sure it's open or this won't work!). Type `cancel` if you made a mistake in the process, or you don't wanna start now.")
+        message.author.send(questions.firstQuestion).then(msg => {
+            const filter1 = m => m.author.id === message.author.id
+            msg.channel.awaitMessages(filter1, {
+                time: 5 * 60000,
+                max: 1
+              }).then(messages => {
+                let msg1 = messages.first().content
+                if(msg1.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.begin` if you are going to try again.")
+                message.author.send(questions.secondQuestion).then(msg => {
+                    const filter1 = m => m.author.id === message.author.id
+                    msg.channel.awaitMessages(filter1, {
+                        time: 5 * 60000,
+                        max: 1
+                      }).then(messages => {
+                        let msg2 = messages.first().content
+                        if(msg1.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.begin` if you are going to try again.")
+                        message.author.send(questions.thirdQuestion).then(msg => {
+                            const filter1 = m => m.author.id === message.author.id
+                            msg.channel.awaitMessages(filter1, {
+                                time: 5 * 60000,
+                                max: 1
+                              }).then(messages => {
+                                let msg3 = messages.first().content
+                                if(msg1.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.begin` if you are going to try again.")
+                                message.author.send(questions.fourthQuestion).then(msg => {
+                                    const filter1 = m => m.author.id === message.author.id
+                                    msg.channel.awaitMessages(filter1, {
+                                        time: 5 * 60000,
+                                        max: 1
+                                      }).then(messages => {
+                                        let msg4 = messages.first().content
+                                        if(msg1.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.begin` if you are going to try again.")
+                                        message.author.send(questions.fifthQuestion).then(msg => {
+                                            const filter1 = m => m.author.id === message.author.id
+                                            msg.channel.awaitMessages(filter1, {
+                                                time: 5 * 60000,
+                                                max: 1
+                                              }).then(messages => {
+                                                let msg5 = messages.first().content
+                                                if(msg1.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.begin` if you are going to try again.")
+                                                message.author.send(questions.sixthQuestion).then(msg => {
+                                                    const filter1 = m => m.author.id === message.author.id
+                                                    msg.channel.awaitMessages(filter1, {
+                                                        time: 5 * 60000,
+                                                        max: 1
+                                                      }).then(messages => {
+                                                        let msg6 = messages.first().content
+                                                        if(msg1.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.begin` if you are going to try again.")
+                                                        message.author.send(questions.seventhQuestion).then(msg => {
+                                                            const filter1 = m => m.author.id === message.author.id
+                                                            msg.channel.awaitMessages(filter1, {
+                                                                time: 5 * 60000,
+                                                                max: 1
+                                                              }).then(messages => {
+                                                                let msg7 = messages.first().content
+                                                                if(msg5.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.begin` if you are going to try again.")
+                                                                message.author.send("Looks like my job is done, I have sent your responses to the Bureau's Office. Should we have additional questions, we will ask you in the holding area. Thank you for your patience!").then(msg => {
+                                                                    staffchan.send(
+                                                                        new Discord.MessageEmbed()
+                                                                            .setTitle('New Verification Request!')
+                                                                            .setColor('#e0b0ff')
+                                                                            .setDescription(`This application was submitted by ${message.author.tag} (${message.author.id}).\nCreated: ${message.author.createdAt}`)
+                                                                            .addField(questions.firstQuestion, "Answer: " + msg1)
+                                                                            .addField(questions.secondQuestion, "Answer: " + msg2)
+                                                                            .addField(questions.thirdQuestion, "Answer: " + msg3)
+                                                                            .addField(questions.fourthQuestion, "Answer: " + msg4)
+                                                                            .addField(questions.fifthQuestion, "Answer: " + msg5)
+                                                                            .addField(questions.sixthQuestion, "Answer: " + msg6)
+                                                                            .addField(questions.seventhQuestion, "Answer: " + msg7)
+                                                                            .addField("instructions:", "`k.accept` to accept - `k.decline` to decline - remember to ask additional questions when in doubt!\n\nGATEKEEPERS ONLY, OTHER STAFF MAY REVIEW VIA THE STAFF CHAT.")
+                                                                            
+                                                                            )
+                                                                    })
+                                                                  })
+                                                                })
+                                                              })
+                                                            })
+                                                          })
+                                                        })
+                                                      })
+                                                    })
+                                                  })
+                                                })
+                                              })
+                                            })
+                                          })
+                                        })
+                                      }
+
+                                      function nope(message){
+                                          let User = message.mentions.users.first()
+                                          if(!User) return message.channel.send("Erm, you forgot to target the user you want to decline their application tho- :eyes: (tip: use `<@(insert user id here)>` if you wanna use it far away!")
+                                          message.channel.send("User is on hold and have been notified that their applications were denied. pay them a visit at the holding area! ")
+                                          User.send(`Your application to ${message.guild.name} got declined by the gatekeepers, it could be that they may have additional security questions. Please do wait for their instructions!`)
+                                    }
+
+                                    function toregistry(message){
+                                        let User = message.mentions.users.first()
+                                        if(!User) 
+                                        {message.channel.send("Erm, you forgot to target the user you want to accept their application tho- :eyes: (tip: use `<@(insert user id here)>` if you wanna use it far away!")
+                                      } else {
+                                        const member = message.guild.members.cache.get(User.id)
+                                        message.channel.send("User has been notified and moved to the registry.")
+                                        member.roles.remove('---')
+                                        User.send(`Your application to ${message.guild.name}has been accepted and you have been moved to phase two. Type "furregister" in the registry and my companion, Sheri, will take it from here. arrivederci!`)
+                                      }}
