@@ -78,10 +78,7 @@ client.on("message", async message => {
         support(message)
     } else
     if (message.content.startsWith(prefix + "help")) {
-        message.channel.send("Here is a list of commands as of date:\n\n```k.support - Access the support tab.\nk.ping - check to see if I am awake.\nk.info - Check who made me and what I am running on.\nk.invite - invite your friends to Cyanide Heights.\nk.botinvite - invite me to your guild!\nk.vote - Support us by voting/rating our server!\nk.apply - check the requirements for staff positions.```")
-    } else
-    if (message.content.startsWith(prefix + "botinvite")) {
-        message.channel.send("Were you hoping that you can get an invite? Sorry. I do not want to go anywhere else.")
+        help(message)
     } else
     if (message.content.startsWith(prefix + "endmirinae")){
  endbot(message)
@@ -105,6 +102,9 @@ client.on("message", async message => {
     if (command === "accept") {
       toregistry(message)
     } else
+       if (message.content.startsWith(prefix + "report")){
+          reported(message)
+       } else
         message.channel.send("Sorry, I do not understand you. Use `k.help` for the list!")
 })
 
@@ -128,10 +128,6 @@ function support(message){
       {
         name: "FAQs",
         value: "Click/tap [here](site faq) to get FAQs!"
-      },
-      {
-          name: "Make an Offline Report Ticket" ,
-          value: "Click/Tap [here](report ticket! google form link) to access the system."
       },
       {
           name: "Server Statistics (December 2020)",
@@ -190,7 +186,8 @@ function endbot(message){
 }
 
 function applications(message){
-  message.channel.send({embed: {
+   message.reply("You seem to be a brave user. I have sent the requirements of staffs and the link to the applications in DMs.")
+  message.author.send({embed: {
     color: 14725375,
     author: {
       name: client.user.username,
@@ -226,6 +223,7 @@ function applications(message){
     }
   }
 })      
+   message.author.send("Are you up for the challenge? Good Luck!")
 }
 
 function seguridad(message){
@@ -347,5 +345,138 @@ function seguridad(message){
                                         const member = message.guild.members.cache.get(User.id)
                                         message.channel.send("User has been notified and moved to the registry.")
                                         member.roles.remove('---')
-                                        User.send(`Your application to ${message.guild.name}has been accepted and you have been moved to phase two. Type "furregister" in the registry and my companion, Sheri, will take it from here. arrivederci!`)
+                                        User.send(`Your application to ${message.guild.name} has been accepted and you have been moved to phase two. Type "furregister" in the registry and my companion, Sheri, will take it from here. arrivederci!`)
                                       }}
+                                      function help(message) {
+                                        message.reply("I have sent a list of my commands in DMs.")
+                                      message.author.send({embed: {
+                                        color: 14725375,
+                                        author: {
+                                          name: client.user.username,
+                                          icon_url: client.user.avatarURL
+                                        },
+                                        title: "KyurenAI Help Tab",
+                                        description: "Commands List for KyurenAI",
+                                        fields: [{
+                                            name: "Support Tab `k.support`",
+                                            value: "Opens the tab for this server's twitter, website, FAQ Page, and Stats Page."
+                                          },
+                                          {
+                                            name: "Report a problem `k.report`",
+                                            value: "Noticed anything unusual? open up a ticket on the spot."
+                                          },
+                                          {
+                                            name: "Status Checker `k.ping`",
+                                            value: "Just making sure to see if I continue to respond."
+                                          },
+                                          {
+                                              name: "Invite a friend `k.invite`" ,
+                                              value: "use this to access the server's official yet permanent invite link."
+                                          },
+                                          {
+                                              name: "Vote/rate Cyanide Heights `k.vote`",
+                                              value: "Vote/rate our server on different server listings!"
+                                          },
+                                          {
+                                            name: "Apply for Staff `k.apply`",
+                                            value: "Opens the tab for the list of positions attainable, as well as the referral link for applicatons" 
+                                          }
+                                        ],
+                                        timestamp: new Date(),
+                                        footer: {
+                                          icon_url: client.user.avatarURL,
+                                          text: "Cyanide Heights - Commands List"
+                                        }
+                                      }
+                                    });
+                                    }
+                                    function reported(message){
+
+                                      const alerti =  client.channels.cache.find(c => c.name === "report-tickets")
+                                    
+                                      const questions = {
+                                        firstQuestion: "Please indicate the type of your report: Member report(member violation), CHMB Report(staff violation), Server issue(channel error, bot error, etc.), or feedback.",
+                                        secondQuestion: "Alright, may I ask if there are anyone else involved in your situation? type their server nickname, or their name and discriminator (ex: Wumpus/Wumpus#1234)",
+                                        thirdQuestion: "Okay, now what seems to be the problem? do explain it in great detail. The more accurate you file this, the faster I could get this to the right person!",
+                                        fourthQuestion: "mhm, got it. Now, where did this happen? Type `in DMs` if it happened in DMs, or `none` if none.",
+                                        fifthQuestion: "Got it, what time did this happened? please state time, as well as the time zone you are using.",
+                                        sixthQuestion: "(Optional) Do you have a message link to the incident? send it here.\n\nnote: you can get it by right-clicking the message and `copy message link` (Desktop Client) or holding the message, press `share` and copy it to clipboard (Mobile Client).",
+                                      }
+                                    
+                                      message.reply("how may I be of assistance? You seemed troubled. Please visit me in DMs(make sure it's open or this won't work!). Type `cancel` if you made a mistake in the process, or you opened me by accident.")
+                                            message.author.send(questions.firstQuestion).then(msg => {
+                                                const filter1 = m => m.author.id === message.author.id
+                                                msg.channel.awaitMessages(filter1, {
+                                                    time: 5 * 60000,
+                                                    max: 1
+                                                  }).then(messages => {
+                                                    let msg1 = messages.first().content
+                                                    if(msg1.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.report` if you are going to try again.")
+                                                    message.author.send(questions.secondQuestion).then(msg => {
+                                                        const filter1 = m => m.author.id === message.author.id
+                                                        msg.channel.awaitMessages(filter1, {
+                                                            time: 5 * 60000,
+                                                            max: 1
+                                                          }).then(messages => {
+                                                            let msg2 = messages.first().content
+                                                            if(msg2.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.report` if you are going to try again.")
+                                                            message.author.send(questions.thirdQuestion).then(msg => {
+                                                                const filter1 = m => m.author.id === message.author.id
+                                                                msg.channel.awaitMessages(filter1, {
+                                                                    time: 5 * 60000,
+                                                                    max: 1
+                                                                  }).then(messages => {
+                                                                    let msg3 = messages.first().content
+                                                                    if(msg3.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.report` if you are going to try again.")
+                                                                    message.author.send(questions.fourthQuestion).then(msg => {
+                                                                        const filter1 = m => m.author.id === message.author.id
+                                                                        msg.channel.awaitMessages(filter1, {
+                                                                            time: 5 * 60000,
+                                                                            max: 1
+                                                                          }).then(messages => {
+                                                                            let msg4 = messages.first().content
+                                                                            if(msg4.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.report` if you are going to try again.")
+                                                                            message.author.send(questions.fifthQuestion).then(msg => {
+                                                                                const filter1 = m => m.author.id === message.author.id
+                                                                                msg.channel.awaitMessages(filter1, {
+                                                                                    time: 5 * 60000,
+                                                                                    max: 1
+                                                                                          }).then(messages => {
+                                                                                            let msg5 = messages.first().content
+                                                                                            if(msg5.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.report` if you are going to try again.")
+                                                                                            message.author.send(questions.sixthQuestion).then(msg => {
+                                                                                                const filter1 = m => m.author.id === message.author.id
+                                                                                                msg.channel.awaitMessages(filter1, {
+                                                                                                    time: 5 * 60000,
+                                                                                                    max: 1
+                                                                                                  }).then(messages => {
+                                                                                                    let msg6 = messages.first().content
+                                                                                                    if(msg6.toLowerCase() === "cancel") return message.author.send("Alright, I'll stop. use `k.report` if you are going to try again.")
+                                                                                                    message.author.send("Alright, your ticket has been made and noted, and I have sent it to the Bureau's Office. I swear on my tail that the report won't get anywhere else and deleted once dealt with. Thanks!\n\nnote: Abuse of this system may or may not get the bureau to take action on your account.").then(msg => {
+                                                                                                        alerti.send(
+                                                                                                            new Discord.MessageEmbed()
+                                                                                                                .setTitle('Report Alert!')
+                                                                                                                .setColor('#e0b0ff')
+                                                                                                                .setDescription(`This ticket was submitted by ${message.author.tag} (${message.author.id}).\nCreated: ${message.author.createdAt}`)
+                                                                                                                .addField("Type of Report:", "Answer: " + msg1)
+                                                                                                                .addField("Involved users:", "Answer: " + msg2)
+                                                                                                                .addField("Details:", "Answer: " + msg3)
+                                                                                                                .addField("Location of Incident:", "Answer: " + msg4)
+                                                                                                                .addField("time of the incident:", "Answer: " + msg5)
+                                                                                                                .addField("(Optional) Discord Message Link:", "Answer: " + msg6)
+                                                                                                                )
+                                                                                                        })
+                                                                                                      })
+                                                                                                    })
+                                                                                                  })
+                                                                                                })
+                                                                                              })
+                                                                                            })
+                                                                                          })
+                                                                                        })
+                                                                                      })
+                                                                                    })
+                                                                                  })
+                                                                                })
+                                                                          }
+                                    
