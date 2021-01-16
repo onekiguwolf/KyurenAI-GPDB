@@ -1,7 +1,7 @@
 {
   "name": "KyurenAI",
-  "version": "1.0.0",
-  "description": "",
+  "version": "8.0.0",
+  "description": "Cyanide Heights - Discord Bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
