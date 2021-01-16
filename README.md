@@ -6,6 +6,7 @@ We are a growing community for furries and non-furries alike. We envision a safe
 https://discord.gg/VrJAvgddbx
 
 Server's Website: https://onekiguwolf.wixsite.com/cyanideheights
+
 Server's Twitter: https://twitter.com/CyanideHeights
 
 KyurenAI-GPDB is a discord.js bot that currently serves as a verification bot, report tickets, and information bot.
