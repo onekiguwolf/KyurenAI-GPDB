@@ -40,7 +40,7 @@ silenced.send(`Good day, <@${member.user.id}> . Here is the question the bureau 
 chss.send(`Salutations <@${member.user.id}>, and welcome to Cyanide Heights! To begin with verification, please answer the questions sent by Security (aka Dyno) in this channel.\n\nAfter answering, please do wait for the staff to approve your entry or ask additional security questions. We hope you enjoy your stay after the 2FA Verification process!\n\np.s: Were there no DMs sent? type __begin__ to get the questions!`)
   }
   });
-const prefix = "k."
+const prefix = "k., K."
 const BotOwner = "Owner"
 
 client.on("message", async message => {
