@@ -51,11 +51,11 @@ client.on("message", async message => {
 
     if (!message.content.startsWith(prefix)) return;
     if (message.author.bot) return;
-
-    if (message.content.startsWith(prefix + "ping")) {
+    if(message.content.toLowerCase().startsWith(Prefix)) {
+    if (command === "ping") {
         message.channel.send(":bell: I am still awake!")
     } else 
-        if (message.content.startsWith(prefix + "info")) {
+        if (command === "info") {
         message.channel.send({embed: {
             color: 14725375,
             author: {
@@ -71,29 +71,29 @@ client.on("message", async message => {
           }
         });
     } else
-    if (message.content.startsWith(prefix + "invite")) {
+    if (command === "invite") {
         message.channel.send("ahh, I am glad that you wanted to let your friends join. Use this link here. Thanks!\nhttps://discord.gg/VrJAvgddbx")
     } else
-    if (message.content.startsWith(prefix + "support")) {
+    if (command === "support") {
         support(message)
     } else
-    if (message.content.startsWith(prefix + "help")) {
+    if (command === "help") {
         help(message)
     } else
-    if (message.content.startsWith(prefix + "endmirinae")){
+    if (command === "endmirinae"){
  endbot(message)
     } else
-    if (message.content.startsWith(prefix + "luki")) {
+    if (command === "luki") {
       message.delete()
       message.channel.send("Luki is cute! and no one can change the way I am programmed to say it!")
     } else
-    if (message.content.startsWith(prefix + "vote")) {
+    if (command === "vote") {
       vote(message)
     } else
-    if (message.content.startsWith(prefix + "apply")){
+    if (command === "apply"){
       applications(message)
     } else 
-    if (message.content.startsWith(prefix + "begin")) {
+    if (command === "begin") {
       seguridad(message)
     } else
     if (command === "decline") {
@@ -102,11 +102,11 @@ client.on("message", async message => {
     if (command === "accept") {
       toregistry(message)
     } else
-       if (message.content.startsWith(prefix + "report")){
+       if (command === "report"){
           reported(message)
        } else
         message.channel.send("Sorry, I do not understand you. Use `k.help` for the list!")
-})
+})}
 
 function support(message){
   message.channel.send({embed: {
