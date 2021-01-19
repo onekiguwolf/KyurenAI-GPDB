@@ -51,7 +51,7 @@ client.on("message", async message => {
 
     if (!message.content.startsWith(prefix)) return;
     if (message.author.bot) return;
-    if(message.content.toLowerCase().startsWith(Prefix)) {
+
     if (command === "ping") {
         message.channel.send(":bell: I am still awake!")
     } else 
@@ -106,7 +106,7 @@ client.on("message", async message => {
           reported(message)
        } else
         message.channel.send("Sorry, I do not understand you. Use `k.help` for the list!")
-})}
+})
 
 function support(message){
   message.channel.send({embed: {
