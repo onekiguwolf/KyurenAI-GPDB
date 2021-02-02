@@ -53,7 +53,7 @@ client.on("message", async message => {
     if (message.author.bot) return;
 
     if (command === "ping") {
-        message.channel.send(":bell: I am still awake!")
+        message.channel.send(`:bell: I am still awake. Latency is ${Date.now() - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
     } else 
         if (command === "info") {
         message.channel.send({embed: {
@@ -331,6 +331,7 @@ function seguridad(message){
                                       }
 
                                       function nope(message){
+                                         message.delete()
                                           let User = message.mentions.users.first()
                                           if(!User) return message.channel.send("Erm, you forgot to target the user you want to decline their application tho- :eyes: (tip: use `<@(insert user id here)>` if you wanna use it far away!")
                                           message.channel.send("User is on hold and have been notified that their applications were denied. pay them a visit at the holding area! ")
@@ -338,6 +339,7 @@ function seguridad(message){
                                     }
 
                                     function toregistry(message){
+                                       message.delete()
                                         let User = message.mentions.users.first()
                                         if(!User) 
                                         {message.channel.send("Erm, you forgot to target the user you want to accept their application tho- :eyes: (tip: use `<@(insert user id here)>` if you wanna use it far away!")
@@ -402,7 +404,7 @@ function seguridad(message){
                                         fifthQuestion: "Got it, what time did this happened? please state time, as well as the time zone you are using.",
                                         sixthQuestion: "(Optional) Do you have a message link to the incident? send it here.\n\nnote: you can get it by right-clicking the message and `copy message link` (Desktop Client) or holding the message, press `share` and copy it to clipboard (Mobile Client).",
                                       }
-                                    
+                                    message.delete()
                                       message.reply("how may I be of assistance? You seemed troubled. Please visit me in DMs(make sure it's open or this won't work!). Type `cancel` if you made a mistake in the process, or you opened me by accident.")
                                             message.author.send(questions.firstQuestion).then(msg => {
                                                 const filter1 = m => m.author.id === message.author.id
