@@ -504,6 +504,6 @@ function seguridad(message){
                                       } else {
                                         const member = message.guild.members.cache.get(User.id)
                                         message.channel.send("User has been validated and moved back to Phase 01.")
-                                        member.roles.remove('747992759201300512')
+                                        member.roles.remove('---')
                                         User.send("You have been validated to proceed with the 2FA Verification. To begin, type `k.begin` in the holding area and I will start making your verification request for Cyanide Heights.")
                                       }}
