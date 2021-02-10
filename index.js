@@ -353,9 +353,6 @@ function seguridad(message){
                                       }  else if(message.member.roles.cache.find(r => r.name === "silenced")) 
                                       {
                                         message.channel.send("Denied. User is a new account and is not allowed to bypass validation (1/3). Make sure they passed through the first phase (removing the silenced role) then use it once their application arrived at the applications channel.")
-                                      }
-                                      else if(!message.member.roles.cache.find(r => r.name === "Dyno Phase")) {
-                                        message.channel.send("Hmm, it appears they were already through the first layer :eyes:")
                                       } else {
                                         const member = message.guild.members.cache.get(User.id)
                                         message.channel.send("User has been notified and moved to the registry.")
