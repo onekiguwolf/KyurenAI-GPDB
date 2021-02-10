@@ -105,6 +105,9 @@ client.on("message", async message => {
        if (command === "report"){
           reported(message)
        } else
+          if (command === "validate"){
+         feelings(message)
+       } else
         message.channel.send("Sorry, I do not understand you. Use `k.help` for the list!")
 })
 
@@ -333,22 +336,33 @@ function seguridad(message){
                                       function nope(message){
                                          message.delete()
                                           let User = message.mentions.users.first()
-                                          if(!User) return message.channel.send("Erm, you forgot to target the user you want to decline their application tho- :eyes: (tip: use `<@(insert user id here)>` if you wanna use it far away!")
+                                          if(!User) {message.channel.send("Erm, you forgot to target the user you want to decline their application tho- :eyes: (tip: use `<@(insert user id here)>` if you wanna use it far away!")
+                                                    }  else if(message.member.roles.cache.find(r => r.name === "silenced")) 
+                                      {
+                                        message.channel.send("Denied. User is a new account and is not allowed to bypass validation (1/3). Make sure they passed through the first phase (removing the silenced role) then use it once their application arrived at the applications channel.")
+                                      } else {
                                           message.channel.send("User is on hold and have been notified that their applications were denied. pay them a visit at the holding area! ")
                                           User.send(`Your application to ${message.guild.name} got declined by the gatekeepers, it could be that they may have additional security questions. Please do wait for their instructions!`)
-                                    }
+                                    }}
 
                                     function toregistry(message){
                                        message.delete()
                                         let User = message.mentions.users.first()
                                         if(!User) 
                                         {message.channel.send("Erm, you forgot to target the user you want to accept their application tho- :eyes: (tip: use `<@(insert user id here)>` if you wanna use it far away!")
+                                      }  else if(message.member.roles.cache.find(r => r.name === "silenced")) 
+                                      {
+                                        message.channel.send("Denied. User is a new account and is not allowed to bypass validation (1/3). Make sure they passed through the first phase (removing the silenced role) then use it once their application arrived at the applications channel.")
+                                      }
+                                      else if(!message.member.roles.cache.find(r => r.name === "Dyno Phase")) {
+                                        message.channel.send("Hmm, it appears they were already through the first layer :eyes:")
                                       } else {
                                         const member = message.guild.members.cache.get(User.id)
                                         message.channel.send("User has been notified and moved to the registry.")
                                         member.roles.remove('---')
                                         User.send(`Your application to ${message.guild.name} has been accepted and you have been moved to phase two. Type "furregister" in the registry and my companion, Sheri, will take it from here. arrivederci!`)
                                       }}
+
                                       function help(message) {
                                         message.reply("I have sent a list of my commands in DMs.")
                                       message.author.send({embed: {
@@ -482,3 +496,14 @@ function seguridad(message){
                                                                                 })
                                                                           }
                                     
+                                    function feelings(message){
+                                      message.delete()
+                                        let User = message.mentions.users.first()
+                                        if(!User) 
+                                        {message.channel.send("Erm, you forgot to target the user you want to accept their application tho- :eyes: (tip: use `<@(insert user id here)>` if you wanna use it far away! Kigu has yet to resolve this issue.")
+                                      } else {
+                                        const member = message.guild.members.cache.get(User.id)
+                                        message.channel.send("User has been validated and moved back to Phase 01.")
+                                        member.roles.remove('747992759201300512')
+                                        User.send("You have been validated to proceed with the 2FA Verification. To begin, type `k.begin` in the holding area and I will start making your verification request for Cyanide Heights.")
+                                      }}
