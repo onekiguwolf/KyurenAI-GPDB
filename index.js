@@ -44,12 +44,14 @@ const prefix = "k."
 const BotOwner = "Owner"
 
 client.on("message", async message => {
+   
+   const prefixes = ['K.', 'k.']
+  let hasPrefix = false;
+    prefixes.some(p => message.content.startsWith(p)) ? hasPrefix = true : null;
+    if(!hasPrefix) return;
+  const args = message.content.slice(prefixes.length).trim().split(/ +/)
+  const command = args.shift().toLowerCase()
 
-  let args = message.content.slice(prefix.length).trim().split(/ +/)
-  let command = args.shift().toLowerCase()
-
-
-    if (!message.content.startsWith(prefix)) return;
     if (message.author.bot) return;
 
     if (command === "ping") {
