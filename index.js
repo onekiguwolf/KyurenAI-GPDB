@@ -103,7 +103,7 @@ client.on("message", async message => {
     if (command === "accept") {
       toregistry(message)
     } else
-       if (command === "report"){
+       if (command === "support"){
           reported(message)
        } else
           if (command === "validate"){
@@ -376,7 +376,7 @@ function seguridad(message){
                                             value: "Opens the tab for this server's twitter, website, FAQ Page, and Stats Page."
                                           },
                                           {
-                                            name: "Report a problem `k.report`",
+                                            name: "Request support `k.support`",
                                             value: "Noticed anything unusual? open up a ticket on the spot."
                                           },
                                           {
@@ -409,12 +409,12 @@ function seguridad(message){
                                       const alerti =  client.channels.cache.find(c => c.name === "report-tickets")
                                     
                                       const questions = {
-                                        firstQuestion: "Please indicate the type of your report: Member report(member violation), CHMB Report(staff violation), Server issue(channel error, bot error, etc.), or feedback.",
-                                        secondQuestion: "Alright, may I ask if there are anyone else involved in your situation? type their server nickname, or their name and discriminator (ex: Wumpus/Wumpus#1234)",
-                                        thirdQuestion: "Okay, now what seems to be the problem? do explain it in great detail. The more accurate you file this, the faster I could get this to the right person!",
-                                        fourthQuestion: "mhm, got it. Now, where did this happen? Type `in DMs` if it happened in DMs, or `none` if none.",
-                                        fifthQuestion: "Got it, what time did this happened? please state time, as well as the time zone you are using.",
-                                        sixthQuestion: "(Optional) Do you have a message link to the incident? send it here.\n\nnote: you can get it by right-clicking the message and `copy message link` (Desktop Client) or holding the message, press `share` and copy it to clipboard (Mobile Client).",
+                                        firstQuestion: "Please indicate the type of your report: Member report(member violation), CHMB Report(staff violation), Private Feedback, or Partnership Inquiry.",
+                                        secondQuestion: "Alright, may I ask if you would like to involve users in this ticket? type their server nickname, or their name and discriminator (ex: Wumpus/Wumpus#1234)",
+                                        thirdQuestion: "Okay, Please type here the details of your ticket. The more accurate this can be, the faster it can get to the right personnel!",
+                                        fourthQuestion: "mhm, got it. Now, is there a place where the situation occured (reporting)? Type `in DMs` if it happened in DMs, or `none` if none.",
+                                        fifthQuestion: "If this is a partnership inquiry, please type the server's description and invite link here. If not, type `skip`",
+                                        sixthQuestion: "(reporting, optional)Did it happen in a channel? get its discord message link and send it here.\n\nnote: you can get it by right-clicking the message and `copy message link` (Desktop Client) or holding the message, press `share` and copy it to clipboard (Mobile Client).",
                                       }
                                     message.delete()
                                       message.reply("how may I be of assistance? You seemed troubled. Please visit me in DMs(make sure it's open or this won't work!). Type `cancel` if you made a mistake in the process, or you opened me by accident.")
@@ -469,14 +469,14 @@ function seguridad(message){
                                                                                                     message.author.send("Alright, your ticket has been made and noted, and I have sent it to the Bureau's Office. I swear on my tail that the report won't get anywhere else and deleted once dealt with. Thanks!\n\nnote: Abuse of this system may or may not get the bureau to take action on your account.").then(msg => {
                                                                                                         alerti.send(
                                                                                                             new Discord.MessageEmbed()
-                                                                                                                .setTitle('Report Alert!')
+                                                                                                                .setTitle('Ticket Received!')
                                                                                                                 .setColor('#e0b0ff')
                                                                                                                 .setDescription(`This ticket was submitted by ${message.author.tag} (${message.author.id}).\nCreated: ${message.author.createdAt}`)
-                                                                                                                .addField("Type of Report:", "Answer: " + msg1)
+                                                                                                                .addField("Type of Ticket:", "Answer: " + msg1)
                                                                                                                 .addField("Involved users:", "Answer: " + msg2)
                                                                                                                 .addField("Details:", "Answer: " + msg3)
                                                                                                                 .addField("Location of Incident:", "Answer: " + msg4)
-                                                                                                                .addField("time of the incident:", "Answer: " + msg5)
+                                                                                                                .addField("Partner Description/link (partnership Inquiries):", "Answer: " + msg5)
                                                                                                                 .addField("(Optional) Discord Message Link:", "Answer: " + msg6)
                                                                                                                 )
                                                                                                         })
