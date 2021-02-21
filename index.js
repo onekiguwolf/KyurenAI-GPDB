@@ -75,7 +75,7 @@ client.on("message", async message => {
     if (command === "invite") {
         message.channel.send("ahh, I am glad that you wanted to let your friends join. Use this link here. Thanks!\nhttps://discord.gg/VrJAvgddbx")
     } else
-    if (command === "support") {
+    if (command === "links") {
         support(message)
     } else
     if (command === "help") {
