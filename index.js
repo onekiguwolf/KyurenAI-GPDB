@@ -84,9 +84,8 @@ client.on("message", async message => {
     if (command === "endmirinae"){
  endbot(message)
     } else
-    if (command === "luki") {
-      message.delete()
-      message.channel.send("Luki is cute! and no one can change the way I am programmed to say it!")
+    if (command === "cute") {
+      nou(message)
     } else
     if (command === "vote") {
       vote(message)
@@ -505,3 +504,16 @@ function seguridad(message){
                                         member.roles.remove('---')
                                         User.send("You have been validated to proceed with the 2FA Verification. To begin, type `k.begin` in the holding area and I will start making your verification request for Cyanide Heights.")
                                       }}
+
+function nou(message){
+let User = message.mentions.users.first()
+  const cutieresp = ["is a cutie~!", "is not the cutie, but I bet you are, kind sir.", "is undeniably cute!", "is a cutie, and no one can change the way I am programmed to say this.", "is cute, hell, Lord Myrox approves this message.", "is a cutie, the Regent surely agrees with me!"]
+const reply = cutieresp[Math.floor(Math.random() * cutieresp.length)];
+const member = message.guild.members.cache.get(User.id)
+
+  if(!User) {
+    message.channel.send("sir, you dropped your target! (user not found)")
+  } else {
+ message.channel.send(`<@${member.user.id}>` + ' ' + reply)
+  }
+}
