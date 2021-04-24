@@ -3,7 +3,7 @@ Hello, this is for a private bot in Discord Servers. If you are interested in my
 
 Cyanide Heights is a growing community of furries and non-furries alike, with over 100 members and counting. We envision a safer, more comfortable, and a more enjoyable experience for everyone!
 
-https://discord.gg/VrJAvgddbx
+https://discord.gg/bjKGf7F8pT
 
 Server's Website: https://onekiguwolf.wixsite.com/cyanideheights
 
