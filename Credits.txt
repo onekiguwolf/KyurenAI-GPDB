@@ -1,0 +1,10 @@
+//This is a Snippet to insert when borrowing the entire thing!
+
+if(command === "bot-support"){
+credits(message)
+}
+
+function credits(message) {
+  message.channel.send('Thank you for your interest about me! Details about my API and its support server will be sent to your DMs.')
+  message.author.send('KyurenAI is a soon-to-be Genral Purpose Discord Bot, designed to protect servers. The API is developed by onekiguwolf#4859.\n\nSupport Server - Find any bugs that he should know? Let him know here! https://discord.gg/bjKGf7F8pT')
+}
